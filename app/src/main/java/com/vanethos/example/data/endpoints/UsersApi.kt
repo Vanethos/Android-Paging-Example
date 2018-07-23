@@ -13,6 +13,7 @@ interface UsersApi {
 
     @GET(PREFIX + "/{userId}/repos")
     fun getRepos(@Path("userId") userId: String,
-                 @Query("page") page: Int
+                 @Query("page") page: Int,
+                 @Query("per_page") perPage : Int
     ): Single<Response<List<ReposDto>>>
 }

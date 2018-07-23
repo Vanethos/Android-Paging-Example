@@ -6,12 +6,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkTools {
+    val retrofit : Retrofit
+    val gson = Gson()
     init {
-        var retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-        var gson = Gson()
+        val gson = Gson()
     }
 }
