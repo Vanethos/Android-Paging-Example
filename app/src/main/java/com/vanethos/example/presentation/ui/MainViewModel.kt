@@ -18,5 +18,6 @@ class MainViewModel : BasePaginationViewModel<ReposDataSourceFactory, Repos>() {
 
     fun newSearch(user : String) {
         dataSourceFactory = ReposDataSourceFactory(getListener(), user)
+        clearData()
     }
 }
