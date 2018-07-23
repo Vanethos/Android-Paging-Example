@@ -48,6 +48,7 @@ dependencies {
 
     implementation "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
     implementation "android.arch.lifecycle:common-java8:$rootProject.architectureComponentsVersion"
+    implementation "android.arch.lifecycle:livedata:$rootProject.architectureComponentsVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"

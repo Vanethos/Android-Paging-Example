@@ -6,11 +6,14 @@ import com.vanethos.example.utils.pagination.datasource.ReposDataSource
 import com.vanethos.example.utils.pagination.datasource._base.OnDataSourceLoading
 
 class ReposDataSourceFactory(var loading: OnDataSourceLoading,
-                             var user: String) : DataSource.Factory<Int, Repos>() {
-    override fun create(): DataSource<Int, Repos> {
-        var source = ReposDataSource(user)
-        source.onDataSourceLoading = loading
-        return source
+                             var user: String?) : DataSource.Factory<Int, Repos>() {
+    override fun create(): DataSource<Int, Repos>? {
+        if (user != null) {
+            var source = ReposDataSource(user!!)
+            source.onDataSourceLoading = loading
+            return source
+        }
+        return null
     }
 
 }
