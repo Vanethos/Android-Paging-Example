@@ -40,6 +40,11 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
         this.clearDataEvents.postValue(Event(Unit))
     }
 
+    fun clearDataSource() {
+        dataSourceFactory.create()
+        createPagedObservable()
+    }
+
     fun getItems(): Observable<PagedList<K>>? {
         if (pagedObservable == null) {
             createPagedObservable()

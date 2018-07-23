@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         )
+        main_recyclerView.layoutManager = LinearLayoutManager(this)
+        main_recyclerView.adapter = adapter
+
 
         // handle enter key in edittext to have a new search happening
         main_editText.setOnEditorActionListener(
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.clearDataEvents.observe(this,
                 Observer {
-                    viewModel.clearData()
+                    viewModel.clearDataSource()
                     adapter.notifyDataSetChanged()
                     submitItems()
                 }
