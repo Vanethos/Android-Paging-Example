@@ -1,4 +1,4 @@
-package com.vanethos.example.utils.pagination._base
+package com.vanethos.example.utils.pagination.datasource._base
 
 interface OnDataSourceLoading {
     fun onFirstFetch()

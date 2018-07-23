@@ -1,8 +1,6 @@
-package com.vanethos.example.utils.pagination._base
+package com.vanethos.example.utils.pagination.datasource._base
 
 import android.arch.paging.PageKeyedDataSource;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 
 
 abstract class BaseDataSource<T> : PageKeyedDataSource<Int, T>() {

@@ -28,8 +28,8 @@ task clean(type: Delete) {
 
 ext {
 
-    supportLibraryVersion = '27.0.2'
-    architectureComponentsVersion = '1.0.0'
+    supportLibraryVersion = '27.1.1'
+    architectureComponentsVersion = '1.1.1'
     constraintLayoutVersion = '1.1.0-beta3'
     pagingVersion = '1.0.0'
 

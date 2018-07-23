@@ -1,9 +1,9 @@
-package com.vanethos.example.utils.pagination
+package com.vanethos.example.utils.pagination.datasource
 
 import android.annotation.SuppressLint
 import com.vanethos.example.domain.managers.ReposManager
 import com.vanethos.example.domain.models.Repos
-import com.vanethos.example.utils.pagination._base.BaseDataSource
+import com.vanethos.example.utils.pagination.datasource._base.BaseDataSource
 import io.reactivex.schedulers.Schedulers
 
 class ReposDataSource(var user : String) : BaseDataSource<Repos>() {
