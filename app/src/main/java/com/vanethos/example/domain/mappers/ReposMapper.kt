@@ -8,9 +8,9 @@ import org.mapstruct.factory.Mappers
 @Mapper
 interface ReposMapper {
     companion object {
-        val Instance = Mappers.getMapper(ReposMapper::class.java)
+        val Instance = Mappers.getMapper(ReposMapper::class.java)!!
     }
 
-    fun map(repos : ReposDto?) : Repos?
-    fun mapList(repos : List<ReposDto>?) : List<Repos>?
+    fun map(repos : ReposDto?) : Repos
+    fun mapList(repos : List<ReposDto>?) : List<Repos>
 }

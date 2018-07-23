@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -73,7 +75,7 @@ dependencies {
 
     // Mapstruct
     implementation "org.mapstruct:mapstruct-jdk8:$rootProject.mapstructVersion"
-    annotationProcessor "org.mapstruct:mapstruct-processor:$rootProject.mapstructVersion"
+    kapt "org.mapstruct:mapstruct-processor:$rootProject.mapstructVersion"
 
 
 

@@ -1,6 +1,7 @@
 package com.vanethos.example.utils.pagination.datasource._base
 
 import android.arch.paging.PageKeyedDataSource;
+import android.util.Log
 
 
 abstract class BaseDataSource<T> : PageKeyedDataSource<Int, T>() {
@@ -54,12 +55,14 @@ abstract class BaseDataSource<T> : PageKeyedDataSource<Int, T>() {
 
     protected fun submitInitialError(error: Throwable) {
         onDataSourceLoading!!.onError()
+        error.printStackTrace()
         // You can also have custom error handling with the provided Throwable
     }
 
 
     protected fun submitError(error: Throwable) {
         onDataSourceLoading!!.onError()
+        error.printStackTrace()
         // You can also have custom error handling with the provided Throwable
     }
     //endregion

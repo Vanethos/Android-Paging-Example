@@ -9,7 +9,7 @@ import com.vanethos.example.domain.models.Repos
 import com.vanethos.example.utils.pagination.datasource._base.BaseDiffAdapter
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class MainAdapter(listener : ItemClickListener) : BaseDiffAdapter<Repos, MainAdapter.MainViewHolder>() {
+class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, MainAdapter.MainViewHolder>() {
     interface ItemClickListener {
         fun onItemClicked(repos: Repos)
     }
@@ -27,6 +27,7 @@ class MainAdapter(listener : ItemClickListener) : BaseDiffAdapter<Repos, MainAda
         holder.watchersTextView.text = repos?.watchersCount.toString()
         holder.languageTextView.text = repos?.language
         holder.starsTextView.text = repos?.startCount.toString()
+        holder.itemView.setOnClickListener({v -> listener.onItemClicked(repos!!)})
     }
 
     class MainViewHolder(view : View) : RecyclerView.ViewHolder(view) {

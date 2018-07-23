@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.clearDataEvents.observe(this,
                 Observer {
                     viewModel.clearDataSource()
-                    adapter.notifyDataSetChanged()
                     submitItems()
+                    adapter.notifyDataSetChanged()
                 }
         )
 
