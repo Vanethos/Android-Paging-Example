@@ -65,6 +65,10 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rootProject.rxBindingVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
 
+    implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
+    // optional - RxJava support, currently in release candidate
+    implementation "android.arch.paging:rxjava2:1.0.1"
+
     // Mapstruct
     implementation "org.mapstruct:mapstruct-jdk8:$rootProject.mapstructVersion"
     annotationProcessor "org.mapstruct:mapstruct-processor:$rootProject.mapstructVersion"

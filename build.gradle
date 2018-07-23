@@ -31,6 +31,7 @@ ext {
     supportLibraryVersion = '27.0.2'
     architectureComponentsVersion = '1.0.0'
     constraintLayoutVersion = '1.1.0-beta3'
+    pagingVersion = '1.0.0'
 
     okHttpVersion = '3.9.1'
     retrofitVersion = '2.3.0'
@@ -40,4 +41,5 @@ ext {
     rxJavaVersion = '2.1.14'
     rxAndroidVersion = '2.0.2'
     rxBindingVersion = '2.1.1'
+
 }
