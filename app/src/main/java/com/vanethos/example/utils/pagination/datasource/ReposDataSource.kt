@@ -7,6 +7,10 @@ import com.vanethos.example.utils.pagination.datasource._base.BaseDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Class that handles how to retrieve data for the recyclerview
+ * @see BaseDataSource
+ */
 class ReposDataSource(var user : String) : BaseDataSource<Repos>() {
     val manager : ReposManager = ReposManager()
 

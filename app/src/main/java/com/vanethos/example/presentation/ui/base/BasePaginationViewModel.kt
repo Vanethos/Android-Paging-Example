@@ -12,11 +12,15 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : ViewModel() {
+/**
+ * Base ViewModel class with observables and helper methods needed to use in the Pagination Library
+ */
+public abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : ViewModel() {
     private var compositeDisposable : CompositeDisposable = CompositeDisposable()
     protected lateinit var dataSourceFactory : T
     private var pagedObservable: Observable<PagedList<K>>? = null
     /**
+     * Events exposed so that the Activity/Fragment can get data from the ViewModel regarding the [BaseDataSource] actions
      * [clearDataEvents] acts as an "event", rather than state. [Observer]s
      * are notified of the change as usual with [LiveData], but only one [Observer]
      * will actually read the data. For more information, check the [Event] class.
@@ -33,6 +37,10 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
     val errorToastEvent : MutableLiveData<Event<Unit>> get() = _errorToastEvent
     private val _errorToastEvent = MutableLiveData<Event<Unit>>()
 
+    /**
+     * This stipulates how many items are going to be fetched each time the user scrolls to the end of the recyclerview
+     * Please note that initially 3 x [getPageSize] items are going to be loaded
+     */
     abstract fun getPageSize() : Int
 
     //region Pagination
@@ -40,6 +48,10 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
         this.clearDataEvents.postValue(Event(Unit))
     }
 
+    /**
+     * Generates a new datasource,
+     * Used when we need to do a new search for a different user
+     */
     fun clearDataSource() {
         dataSourceFactory.create()
         createPagedObservable()
@@ -52,6 +64,9 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
         return pagedObservable
     }
 
+    /**
+     * Creates observable stream for the data fetched by the DataSource
+     */
     fun createPagedObservable() {
         pagedObservable = RxPagedListBuilder(
                 dataSourceFactory,
@@ -62,6 +77,10 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
                 .buildObservable()
     }
 
+    /**
+     * Listener used in the DataSource that we use to manipulate the Activity/Fragment to show/hide views and present
+     * relevant information
+     */
     protected fun getListener(): OnDataSourceLoading {
         return object : OnDataSourceLoading {
             override fun onFirstFetch() {
@@ -76,7 +95,6 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
             override fun onFirstFetchEndWithoutData() {
                 hideRecyclerLoading()
                 showEmptyVisibility()
-
             }
 
             override fun onDataLoading() {
@@ -102,6 +120,9 @@ abstract class BasePaginationViewModel<T : DataSource.Factory<Int, K>, K> : View
     }
     //endregion
 
+    /**
+     * Helper methods to show and hide views on the Activity/Fragment
+     */
     //region empty visibility
     fun showEmptyVisibility() {
         emptyVisibilityEvents.postValue(Event(true))

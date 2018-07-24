@@ -8,14 +8,17 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 class MainViewModel : BasePaginationViewModel<ReposDataSourceFactory, Repos>() {
-    override fun getPageSize(): Int {
-        return 3
-    }
-
     init {
         dataSourceFactory = ReposDataSourceFactory(getListener(), null)
     }
 
+    override fun getPageSize(): Int {
+        return 3
+    }
+
+    /**
+     * Handles a new user search
+     */
     fun newSearch(user : String) {
         dataSourceFactory = ReposDataSourceFactory(getListener(), user)
         clearData()

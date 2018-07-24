@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.vanethos.example.R
 import com.vanethos.example.domain.models.Repos
 import com.vanethos.example.utils.pagination.datasource._base.BaseDiffAdapter
+import com.vanethos.example.utils.pagination.datasource._base.VIEW_TYPE_NORMAL
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, RecyclerView.ViewHolder>() {
@@ -15,19 +16,19 @@ class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, Rec
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == this.VIEW_TYPE_NORMAL) {
+        if (viewType == VIEW_TYPE_NORMAL) {
             return MainViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_repo, parent, false)
             )
         } else {
-            return MainViewHolder(LayoutInflater.from(parent.context)
+            return LoadingViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_loading, parent, false)
             )
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == this.VIEW_TYPE_NORMAL) {
+        if (getItemViewType(position) == VIEW_TYPE_NORMAL) {
             var repos = getItem(position)
             var viewHolder = holder as MainViewHolder
             viewHolder.titleTextView.text = repos?.name

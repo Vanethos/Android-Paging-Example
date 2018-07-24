@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.empty_view.*
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import android.content.Intent
+import android.net.Uri
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+        // Initial setup
         setupViews()
         registerObservables()
     }
@@ -36,10 +39,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupViews() {
+        // RecyclerView setup
         adapter = MainAdapter(
                 object : MainAdapter.ItemClickListener {
                     override fun onItemClicked(repos: Repos) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        if (!repos.url.isNullOrBlank()) {
+                            val i = Intent(Intent.ACTION_VIEW)
+                            i.data = Uri.parse(repos.url)
+                            startActivity(i)
+                        }
                     }
                 }
         )
@@ -63,12 +71,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun registerObservables() {
+        // We start by submiting the list to the adapter initally
         submitItems()
 
+        // Toast for API Errors
         viewModel.errorToastEvent.observe(this,
                 Observer { Toast.makeText(this, getString(R.string.err_search), Toast.LENGTH_LONG) }
         )
 
+        // Clearing the data of the adapter when doing a new search
         viewModel.clearDataEvents.observe(this,
                 Observer {
                     viewModel.clearDataSource()
@@ -77,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
         )
 
+        // Showing an empty view on the screen
         viewModel.emptyVisibilityEvents.observe(this,
                 Observer { show ->
                     if(show != null) {
@@ -86,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                 }
         )
 
+        // Display the recyclerview loading item
         viewModel.recyclerViewLoadingEvents.observe(this,
                 Observer { show ->
                     if(show != null) {
@@ -94,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
+    // Submits the list (with the pagination) to the adapter
     fun submitItems() {
         viewModel.getItems()!!
                 .subscribe(
@@ -104,6 +118,7 @@ class MainActivity : AppCompatActivity() {
                 )
     }
 
+    // method to hide the keyboard on each search
     fun hideKeyboard() {
         val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
