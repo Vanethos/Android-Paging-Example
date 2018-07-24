@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.vanethos.example.R
 import com.vanethos.example.domain.models.Repos
-import com.vanethos.example.utils.pagination.datasource._base.BaseDiffAdapter
-import com.vanethos.example.utils.pagination.datasource._base.VIEW_TYPE_NORMAL
+import com.vanethos.example.presentation.ui.base.BaseDiffAdapter
+import com.vanethos.example.presentation.ui.base.VIEW_TYPE_NORMAL
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, RecyclerView.ViewHolder>() {
@@ -16,15 +16,11 @@ class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, Rec
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_NORMAL) {
-            return MainViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_repo, parent, false)
-            )
-        } else {
-            return LoadingViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_loading, parent, false)
-            )
-        }
+        return if (viewType == VIEW_TYPE_NORMAL)
+            MainViewHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_repo, parent, false))
+         else LoadingViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_loading, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

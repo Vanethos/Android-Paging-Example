@@ -12,15 +12,13 @@ class MainViewModel : BasePaginationViewModel<ReposDataSourceFactory, Repos>() {
         dataSourceFactory = ReposDataSourceFactory(getListener(), null)
     }
 
-    override fun getPageSize(): Int {
-        return 3
-    }
+    override fun getPageSize(): Int = 3
 
     /**
      * Handles a new user search
      */
     fun newSearch(user : String) {
-        dataSourceFactory = ReposDataSourceFactory(getListener(), user)
+        dataSourceFactory.user = user
         clearData()
     }
 }

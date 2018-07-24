@@ -20,6 +20,7 @@ class ReposDataSource(var user : String) : BaseDataSource<Repos>() {
         manager.getListOfRepos(user, 0, params.requestedLoadSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(this::addDisposable)
                 .subscribe(
                         { items -> submitInitialData(items, params, callback) },
                         { error -> submitInitialError(error) }
@@ -31,6 +32,7 @@ class ReposDataSource(var user : String) : BaseDataSource<Repos>() {
         manager.getListOfRepos(user, params.key, params.requestedLoadSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(this::addDisposable)
                 .subscribe(
                         { items -> submitData(items, params, callback) },
                         { error -> submitError(error) }

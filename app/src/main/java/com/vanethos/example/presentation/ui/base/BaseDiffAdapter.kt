@@ -1,4 +1,4 @@
-package com.vanethos.example.utils.pagination.datasource._base
+package com.vanethos.example.presentation.ui.base
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil

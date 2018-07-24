@@ -2,6 +2,8 @@ package com.vanethos.example.utils.pagination.datasource._base
 
 import android.arch.paging.PageKeyedDataSource;
 import android.util.Log
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Class that handles how the recyclerview will retrieve data when:
@@ -10,6 +12,8 @@ import android.util.Log
  */
 abstract class BaseDataSource<T> : PageKeyedDataSource<Int, T>() {
     lateinit var onDataSourceLoading: OnDataSourceLoading
+
+    private var compositeDisposable = CompositeDisposable()
 
     protected abstract fun loadInitialData(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, T>)
     protected abstract fun loadAditionalData(params: LoadParams<Int>, callback: LoadCallback<Int, T>)
@@ -78,4 +82,13 @@ abstract class BaseDataSource<T> : PageKeyedDataSource<Int, T>() {
         // You can also have custom error handling with the provided Throwable
     }
     //endregion
+
+    override fun invalidate() {
+        super.invalidate()
+        compositeDisposable.dispose()
+    }
+
+    fun addDisposable(disposable: Disposable) {
+        compositeDisposable.add(disposable)
+    }
 }

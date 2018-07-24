@@ -10,13 +10,20 @@ import com.vanethos.example.utils.pagination.datasource._base.OnDataSourceLoadin
  */
 class ReposDataSourceFactory(var loading: OnDataSourceLoading,
                              var user: String?) : DataSource.Factory<Int, Repos>() {
+    lateinit var source : ReposDataSource
+
     override fun create(): DataSource<Int, Repos>? {
+        // invalidate the previous data source, if available
+        if (::source.isInitialized && source != null) source.invalidate()
+        // if we have a user, then create a data source
         if (user != null) {
-            var source = ReposDataSource(user!!)
+            source = ReposDataSource(user!!)
             source.onDataSourceLoading = loading
             return source
         }
         return null
     }
+
+
 
 }
