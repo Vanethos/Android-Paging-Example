@@ -9,25 +9,34 @@ import com.vanethos.example.domain.models.Repos
 import com.vanethos.example.utils.pagination.datasource._base.BaseDiffAdapter
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, MainAdapter.MainViewHolder>() {
+class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, RecyclerView.ViewHolder>() {
     interface ItemClickListener {
         fun onItemClicked(repos: Repos)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_repo, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == this.VIEW_TYPE_NORMAL) {
+            return MainViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_repo, parent, false)
+            )
+        } else {
+            return MainViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_loading, parent, false)
+            )
+        }
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        var repos = getItem(position)
-        holder.titleTextView.text = repos?.name
-        holder.descriptionTextView.text = repos?.description
-        holder.watchersTextView.text = repos?.watchersCount.toString()
-        holder.languageTextView.text = repos?.language
-        holder.starsTextView.text = repos?.startCount.toString()
-        holder.itemView.setOnClickListener({v -> listener.onItemClicked(repos!!)})
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == this.VIEW_TYPE_NORMAL) {
+            var repos = getItem(position)
+            var viewHolder = holder as MainViewHolder
+            viewHolder.titleTextView.text = repos?.name
+            viewHolder.descriptionTextView.text = repos?.description
+            viewHolder.watchersTextView.text = repos?.watchersCount.toString()
+            viewHolder.languageTextView.text = repos?.language
+            viewHolder.starsTextView.text = repos?.startCount.toString()
+            viewHolder.itemView.setOnClickListener({ v -> listener.onItemClicked(repos!!) })
+        }
     }
 
     class MainViewHolder(view : View) : RecyclerView.ViewHolder(view) {

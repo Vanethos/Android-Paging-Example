@@ -14,7 +14,7 @@ class ReposManager {
         return reposService.getReposForUser(user, page, perPage)
                 .onErrorResumeNext({throwable -> Single.error(throwable)})
                 .flatMap { response ->
-                    if (!response.isSuccessful()) {
+                    if (!response.isSuccessful) {
                         Single.error(Throwable(response.code().toString()))
                     } else Single.just(response)
                 }

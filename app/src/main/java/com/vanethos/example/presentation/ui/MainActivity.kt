@@ -16,6 +16,9 @@ import com.vanethos.example.domain.models.Repos
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.empty_view.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             viewModel.newSearch(main_editText.text.toString())
+                            hideKeyboard()
                             return true
                         }
                         return false
@@ -98,5 +102,16 @@ class MainActivity : AppCompatActivity() {
                             //Error handling
                         }
                 )
+    }
+
+    fun hideKeyboard() {
+        val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = this.getCurrentFocus()
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(this)
+        }
+        imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
     }
 }
