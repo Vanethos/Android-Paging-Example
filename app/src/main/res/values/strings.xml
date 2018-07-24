@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">android-navigation-example</string>
+    <string name="hint_username">Enter user name</string>
+    <string name="err_search">An error has occured</string>
 </resources>

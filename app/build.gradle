@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -43,10 +45,12 @@ dependencies {
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
 
     implementation "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
     implementation "android.arch.lifecycle:common-java8:$rootProject.architectureComponentsVersion"
+    implementation "android.arch.lifecycle:livedata:$rootProject.architectureComponentsVersion"
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:$rootProject.okHttpVersion"
@@ -65,9 +69,13 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rootProject.rxBindingVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$rootProject.rxBindingVersion"
 
+    implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
+    // optional - RxJava support, currently in release candidate
+    implementation "android.arch.paging:rxjava2:1.0.1"
+
     // Mapstruct
     implementation "org.mapstruct:mapstruct-jdk8:$rootProject.mapstructVersion"
-    annotationProcessor "org.mapstruct:mapstruct-processor:$rootProject.mapstructVersion"
+    kapt "org.mapstruct:mapstruct-processor:$rootProject.mapstructVersion"
 
 
 
