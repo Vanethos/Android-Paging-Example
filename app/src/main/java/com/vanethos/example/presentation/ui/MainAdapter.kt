@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.vanethos.example.R
 import com.vanethos.example.domain.models.Repos
-import com.vanethos.example.utils.pagination.datasource._base.BaseDiffAdapter
-import com.vanethos.example.utils.pagination.datasource._base.VIEW_TYPE_NORMAL
+import com.vanethos.example.presentation.ui.base.BaseDiffAdapter
+import com.vanethos.example.presentation.ui.base.VIEW_TYPE_NORMAL
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 class MainAdapter(var listener : ItemClickListener) : BaseDiffAdapter<Repos, RecyclerView.ViewHolder>() {
