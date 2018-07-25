@@ -70,9 +70,14 @@ We then need to tell Android how to create the specified Data Source, to do that
 ```
 class ReposDataSourceFactory(var loading: OnDataSourceLoading,
                              var user: String?) : DataSource.Factory<Int, Repos>() {
+    lateinit var source : ReposDataSource
+
     override fun create(): DataSource<Int, Repos>? {
+        // invalidate the previous data source, if available
+        if (::source.isInitialized && source != null) source.invalidate()
+        // if we have a user, then create a data source
         if (user != null) {
-            var source = ReposDataSource(user!!)
+            source = ReposDataSource(user!!)
             source.onDataSourceLoading = loading
             return source
         }
@@ -166,7 +171,8 @@ If, like in our example, we will need to change the data source by retrieving da
 _ViewModel_ 
 ```
 fun newSearch(user : String) {
-    dataSourceFactory = ReposDataSourceFactory(getListener(), user)
+    // set a new value for the dataSource internal variable
+    dataSourceFactory.user = user
     clearData()
 }     
 ```
